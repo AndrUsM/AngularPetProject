@@ -1,0 +1,11 @@
+<form [formGroup]="formGroup">
+  <div [formGroup]="formGroup.controls.personalInfo">
+    <mat-form-field>
+      <mat-label>First name</mat-label>
+
+      <input matInput placeholder="First name" formControlName="firstName" />
+
+      <mat-error />
+    </mat-form-field>
+  </div>
+</form>
