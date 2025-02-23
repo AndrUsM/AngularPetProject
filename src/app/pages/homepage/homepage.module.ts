@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 
 import { HomePageComponent } from './homepage.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { CardNumberValidationDirective } from '../../shared/directives/card-number-validation.directive';
 
 @NgModule({
   declarations: [HomePageComponent],
@@ -14,6 +16,8 @@ import { HomePageComponent } from './homepage.component';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSlideToggleModule,
+    CardNumberValidationDirective,
   ],
   exports: [
     RouterModule,

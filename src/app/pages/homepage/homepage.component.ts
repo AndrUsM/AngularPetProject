@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   standalone: false,
 })
 export class HomePageComponent {
-  personalInformationFormSection = new FormGroup({
+  public personalInformationFormSection = new FormGroup({
     firstName: new FormControl<string>('', [
       Validators.required,
     ]),
@@ -26,9 +26,17 @@ export class HomePageComponent {
     ])
   });
 
-  formGroup = new FormGroup({
-    personalInfo: this.personalInformationFormSection,
+  public paymentFormSection = new FormGroup({
+    cardNumber: new FormControl<string>('', [
+      Validators.required,
+    ]),
+    hasCredits: new FormControl<boolean>(false),
   })
+
+  public formGroup = new FormGroup({
+    personalInfo: this.personalInformationFormSection,
+    paymentInfo: this.paymentFormSection,
+  });
 
   constructor() { }
 

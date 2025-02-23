@@ -1,0 +1,1 @@
+export const BOOLEAN_NOOP = () => true;

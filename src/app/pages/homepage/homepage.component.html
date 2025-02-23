@@ -1,11 +1,48 @@
-<form [formGroup]="formGroup">
-  <div [formGroup]="formGroup.controls.personalInfo">
+<form class="stack-layout" [formGroup]="formGroup">
+  <div class="stack-layout form-section" [formGroup]="formGroup.controls.personalInfo">
     <mat-form-field>
       <mat-label>First name</mat-label>
 
-      <input matInput placeholder="First name" formControlName="firstName" />
+      <input matInput formControlName="firstName" />
 
       <mat-error />
     </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>First name</mat-label>
+
+      <input matInput formControlName="surname" />
+
+      <mat-error />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+
+      <input matInput formControlName="email" />
+
+      <mat-error />
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Age</mat-label>
+
+      <input matInput formControlName="age" type="number" min="0" />
+
+      <mat-error />
+    </mat-form-field>
+  </div>
+
+  <div class="stack-layout form-section" [formGroup]="formGroup.controls.paymentInfo">
+    <mat-form-field>
+      <mat-label>Card Number</mat-label>
+
+      <input matInput formControlName="cardNumber" cardNumberValidation type="string" min="0" />
+
+      <mat-error />
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="hasCredits">Has redits</mat-slide-toggle>
   </div>
 </form>
