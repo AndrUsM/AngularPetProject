@@ -7,6 +7,7 @@ import { BrowserAnimationsModule, provideAnimations } from "@angular/platform-br
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
+import { provideHttpClient, withFetch } from "@angular/common/http";
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { AppRoutingModule } from "./app-routing/app-routing.module";
         useValue: { appearance: 'fill' }
       },
       provideAnimations(),
+      provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })
