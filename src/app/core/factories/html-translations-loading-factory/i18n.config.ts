@@ -1,0 +1,2 @@
+export const TRANSLATIONS_ASSETS_PATH = 'i18n/';
+export const DEFAULT_TRANSLATIONS_LANGUAGE = 'en';
