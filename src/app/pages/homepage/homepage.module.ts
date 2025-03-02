@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { HomePageComponent } from './homepage.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CardNumberValidationDirective } from '../../shared/directives/card-number-validation.directive';
+import { UserService } from '../../core/services/user-service/user-service';
 
 @NgModule({
   declarations: [HomePageComponent],
@@ -17,10 +18,12 @@ import { CardNumberValidationDirective } from '../../shared/directives/card-numb
     MatFormFieldModule,
     MatInputModule,
     MatSlideToggleModule,
-    CardNumberValidationDirective,
-  ],
+    CardNumberValidationDirective,],
   exports: [
     RouterModule,
+  ],
+  providers: [
+    UserService,
   ]
 })
 

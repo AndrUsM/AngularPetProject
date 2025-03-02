@@ -1,7 +1,8 @@
 import { Injectable, signal, effect } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 
-import { RequestService } from "../request-sevice/request-service";
-import { Role, UserDto } from "../../models/user-dto";
+import { Role, UserDto } from '@core/models/user-dto';
+import { Observable, map } from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -11,19 +12,18 @@ export class UserService {
   private user = signal<UserDto | null>(null);
 
   constructor(
-    private _requestService: RequestService
+    private httpClient: HttpClient
   ) {
-    this.getUser();
+    this.fetchUser();
   }
 
-  getUser(): UserDto | null {
-    const data = this._requestService.fetch<UserDto>('/user/1');
-    const maybeUser = data?.value() ?? null;
+  fetchUser(): Observable<UserDto | null> {
+    return this.httpClient.get<UserDto>('/user/1').pipe(map((user) => {
+      this.user.set(user);
+      this.roles.set([user?.role as Role].filter(Boolean));
 
-    this.user.set(maybeUser);
-    this.roles.set([maybeUser?.role as Role].filter(Boolean));
-
-    return maybeUser;
+      return user;
+    }));
   }
 
   public isAdmin(): boolean {

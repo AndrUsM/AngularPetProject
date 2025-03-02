@@ -1,7 +1,10 @@
 
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { UserDto } from '@core/models/user-dto';
+import { UserService } from '@core/services/user-service/user-service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'homepage',
@@ -10,6 +13,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   standalone: false,
 })
 export class HomePageComponent {
+  private ngUnsubscribe = new Subject<void>();
+  private user$ = signal<UserDto | null>(null);
+
   public personalInformationFormSection = new FormGroup({
     firstName: new FormControl<string>('', [
       Validators.required,
@@ -38,9 +44,23 @@ export class HomePageComponent {
     paymentInfo: this.paymentFormSection,
   });
 
-  constructor() { }
+  constructor(
+    private userService: UserService
+  ) {
+    this.userService.fetchUser()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: (user) => {
+          this.user$.set(user);
+        }
+      })
+  }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.unsubscribe();
+  }
 
   public getControl(path: string) {
     return this.formGroup.get(path) as FormControl;
