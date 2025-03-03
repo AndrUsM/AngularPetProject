@@ -1,7 +1,8 @@
 <h1>{{ title }}</h1>
 
-<nav>
-  <a routerLink="homepage">{{ 'homepage.title' | translate }}</a>
+<nav class="cluster-layout">
+  <a routerLink="/app">{{ 'homepage.title' | translate }}</a>
+  <a routerLink="/auth">Login</a>
 </nav>
 
 <router-outlet />

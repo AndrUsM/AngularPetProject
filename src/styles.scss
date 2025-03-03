@@ -1,4 +1,6 @@
 @use '@angular/material' as mat;
+@use "tailwindcss";
+
 
 html {
   color-scheme: light dark;
@@ -7,4 +9,22 @@ html {
 body {
   background: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
+}
+
+.stack-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cluster-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+
+.form-section {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }

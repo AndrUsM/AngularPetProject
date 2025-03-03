@@ -1,0 +1,1 @@
+export const convertHoursToMinutes = (hours: number | string) => Number(hours) * 60;

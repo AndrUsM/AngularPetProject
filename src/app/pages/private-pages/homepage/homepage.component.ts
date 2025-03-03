@@ -1,20 +1,31 @@
 
 import { Component, signal } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { Subject } from 'rxjs';
+
 import { UserDto } from '@core/models/user-dto';
 import { UserService } from '@core/services/user-service/user-service';
-import { Subject, takeUntil } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'homepage',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.scss'],
-  standalone: false,
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+  ],
+  providers: [
+    UserService,
+  ]
 })
 export class HomePageComponent {
   private ngUnsubscribe = new Subject<void>();
-  private user$ = signal<UserDto | null>(null);
 
   public personalInformationFormSection = new FormGroup({
     firstName: new FormControl<string>('', [
@@ -44,17 +55,7 @@ export class HomePageComponent {
     paymentInfo: this.paymentFormSection,
   });
 
-  constructor(
-    private userService: UserService
-  ) {
-    this.userService.fetchUser()
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (user) => {
-          this.user$.set(user);
-        }
-      })
-  }
+  constructor() { }
 
   ngOnInit() { }
 

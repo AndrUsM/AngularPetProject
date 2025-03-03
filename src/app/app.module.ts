@@ -12,6 +12,8 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { HttpLoaderFactory } from "./core/factories/html-translations-loading-factory/html-translations-loading-factory";
+import { AuthGuard } from "@core/services/auth-guard/auth-guard";
+import { AppGuard } from "@core/services/app-guard/app-guard";
 
 
 
@@ -51,7 +53,9 @@ import { HttpLoaderFactory } from "./core/factories/html-translations-loading-fa
     },
     TranslateService,
     provideAnimations(),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
+    AuthGuard,
+    AppGuard,
   ],
   bootstrap: [AppComponent]
 })
