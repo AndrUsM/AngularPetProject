@@ -5,6 +5,7 @@ import { AppGuard } from '@core/services/app-guard/app-guard';
 import { HomePageComponent } from '../pages/private-pages/homepage/homepage.component';
 import { LoginComponent } from 'app/pages/auth/login/login.component';
 import { AppComponent } from 'app/app.component';
+import { RecipesComponent } from 'app/pages/private-pages/recipes/recipes.component';
 
 
 export const APP_ROUTING: Routes = [
@@ -29,6 +30,10 @@ export const APP_ROUTING: Routes = [
       {
         path: 'homepage',
         component: HomePageComponent
+      },
+      {
+        path: 'recipes',
+        component: RecipesComponent,
       },
       {
         path: '**',

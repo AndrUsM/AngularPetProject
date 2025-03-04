@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { Router } from "@angular/router";
-import { UserLoginDto } from "@core/models/user-login-dto";
+import { UserLoginDto } from "@features/users/models/user-login-dto";
 import { UserService } from "@core/services/user-service/user-service";
 import { Subject, takeUntil, takeWhile } from "rxjs";
 

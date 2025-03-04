@@ -1,4 +1,4 @@
-import { UserDto } from "./user-dto";
+import { UserDto } from "../../../core/models/user-dto";
 
 export interface UserLoginResponse extends UserDto {
   accessToken: string;

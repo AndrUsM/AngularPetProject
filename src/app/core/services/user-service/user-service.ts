@@ -4,9 +4,9 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, Subject, iif, map, skipWhile, takeUntil, takeWhile } from "rxjs";
 
 import { Role, UserDto } from '@core/models/user-dto';
-import { UserLoginDto } from "@core/models/user-login-dto";
-import { UserLoginResponse } from "@core/models/user-login-response";
-import { UserFefetchResponse } from "@core/models/user-refetch-auth-response";
+import { UserLoginDto } from "@features/users/models/user-login-dto";
+import { UserLoginResponse } from "@features/users/models/user-login-response";
+import { UserFefetchResponse } from "@features/users/models/user-refetch-auth-response";
 import { SessionStorageService } from "@core/services/session-storage-service/session-storage-service";
 
 import { convertHoursToMinutes } from "@shared/utils/parse-hours-to-minutes";

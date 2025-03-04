@@ -1,0 +1,23 @@
+<div class="w-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+  <ul
+    class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
+    role="tablist">
+    <li class="me-2">
+      <button [attr.id]="generalTabId()" (click)="this.setActiveTab('general')"
+        [attr.data-tabs-target]="`#${tabTarget()}`" type="button" role="tab" aria-controls="about" aria-selected="true"
+        class="inline-block p-4 text-blue-600 rounded-ss-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-blue-500">General</button>
+    </li>
+  </ul>
+
+  <div>
+    <div class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" *ngIf="activeTab() === 'general'" role="tabpanel"
+      [attr.aria-labelledby]="generalTabId()">
+      @if (this.recipe.name) {
+      <h2 class="mb-3 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">{{ recipe.name }}</h2>
+      }
+
+      <div class="flex flex-wrap text-2xs">
+        <badge *ngFor="let tag of recipe?.tags" variant="info">{{tag}}</badge>
+      </div>
+    </div>
+  </div>
