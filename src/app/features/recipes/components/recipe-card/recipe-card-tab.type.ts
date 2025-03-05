@@ -1,0 +1,1 @@
+export type RecipeCardTab = 'general' | 'ingredients' | 'instructions';

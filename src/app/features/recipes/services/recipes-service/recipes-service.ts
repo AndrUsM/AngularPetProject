@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 
 import { Observable, map } from "rxjs";
 
@@ -15,9 +15,7 @@ import { RecipesResponse } from "./types/recipes-response";
 export class RecipesService {
   private httpClient = inject(HttpClient);
 
-  constructor() {
-
-  }
+  constructor() {}
 
   public getById(id: string): Observable<Recipe | null> {
     return this.httpClient.get<Recipe>(`api/recipes/${id}`)
@@ -26,8 +24,9 @@ export class RecipesService {
 
   public get(options?: EntityQueryParams): Observable<Recipe[]> {
     const params = parseObjectToQueryParams(options);
+    const url = options?.q ? 'api/recipes/search' : 'api/recipes';
 
-    return this.httpClient.get<RecipesResponse>('api/recipes', {
+    return this.httpClient.get<RecipesResponse>(url, {
       params
     })
       .pipe(map(({ recipes }) => recipes ?? []));

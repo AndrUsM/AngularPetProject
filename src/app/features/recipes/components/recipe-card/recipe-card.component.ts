@@ -1,8 +1,14 @@
-import { CommonModule } from "@angular/common";
+import { CommonModule, NgFor } from "@angular/common";
 import { Component, Input, input, OnInit, signal } from "@angular/core";
 
 import { Recipe } from "@features/recipes/models/recipe";
+
 import { BadgeComponent } from "@shared/components/badge/badge.component";
+
+import { RecipeCardTab } from "./recipe-card-tab.type";
+import { RecipeCardTabComponent } from "./recipe-card-tab/recipe-card-tab.component";
+import { RecipeCardNavLinkComponent } from "./recipe-card-nav-link/recipe-card-nav-link.component";
+import { RecipeCardTabTitleComponent } from "./recipe-card-tab-title/recipe-card-tab-title.component";
 
 @Component({
   selector: 'recipe-card',
@@ -10,29 +16,31 @@ import { BadgeComponent } from "@shared/components/badge/badge.component";
   standalone: true,
   imports: [
     BadgeComponent,
+    RecipeCardTabComponent,
+    RecipeCardNavLinkComponent,
+    RecipeCardTabTitleComponent,
+    NgFor,
     CommonModule,
   ],
 })
-export class RecipeCardComponent implements OnInit {
+export class RecipeCardComponent {
   @Input({
     required: true,
     alias: 'recipe'
   })
   recipe!: Recipe;
 
-  public activeTab = signal<string>('general');
+  public activeTab = signal<RecipeCardTab>('general');
 
-  public generalTabId = signal<string | null>(null);
-  public tabTarget = signal<string | null>(null);
-
-
-  ngOnInit() {
-    this.generalTabId.set(`recipe-card-tab-${this.recipe?.id}`);
-    this.tabTarget.set(`general-tab-${this.recipe?.id}`);
+  get ingredients(): string[] {
+    return this.recipe.ingredients ?? [];
   }
 
-  public setActiveTab(tabName: string) {
+  get instructions(): string[] {
+    return this.recipe.instructions ?? [];
+  }
+
+  public setActiveTab(tabName: RecipeCardTab) {
     this.activeTab.set(tabName);
   }
-
 }

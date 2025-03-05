@@ -1,7 +1,38 @@
-<h2>Recipes</h2>
+<div class="stack-layout">
+  <h2>Recipes</h2>
 
-<div class="stack-layout" *ngIf="recipes().length > 0">
-  <recipe-card
-    *ngFor="let recipe of recipes()"
-    [recipe]="recipe"></recipe-card>
+  <form [formGroup]="recipesQueryParamsForm">
+    <div class="cluster-layout bg-orange-50">
+      <mat-form-field>
+        <mat-label>Search</mat-label>
+
+        <input matInput formControlName="searchText" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Sort by</mat-label>
+
+        <mat-select [disabled]="isSearch" formControlName="sortOrder">
+          <mat-option>None</mat-option>
+
+          <mat-option value="asc">Asc</mat-option>
+          <mat-option value="desc">Desc</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+
+  @if (!isLoading() && recipes().length > 0) {
+  <div class="stack-layout">
+    <recipe-card *ngFor="let recipe of recipes()" [recipe]="recipe"></recipe-card>
+  </div>
+  }
+
+  @if (isLoading()) {
+  <h2>Loading...</h2>
+  }
+
+  @if (!isLoading() && !recipes().length) {
+    <h2>No recipes</h2>
+  }
 </div>

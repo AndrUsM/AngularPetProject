@@ -2,22 +2,35 @@
   <ul
     class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
     role="tablist">
-    <li class="me-2">
-      <button [attr.id]="generalTabId()" (click)="this.setActiveTab('general')"
-        [attr.data-tabs-target]="`#${tabTarget()}`" type="button" role="tab" aria-controls="about" aria-selected="true"
-        class="inline-block p-4 text-blue-600 rounded-ss-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-blue-500">General</button>
-    </li>
+    <recipe-card-nav-link (navigate)="this.setActiveTab($event)" tabName="general">General</recipe-card-nav-link>
+    <recipe-card-nav-link (navigate)="this.setActiveTab($event)" tabName="ingredients">Ingredients</recipe-card-nav-link>
+    <recipe-card-nav-link (navigate)="this.setActiveTab($event)" tabName="instructions">Instructions</recipe-card-nav-link>
   </ul>
 
   <div>
-    <div class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" *ngIf="activeTab() === 'general'" role="tabpanel"
-      [attr.aria-labelledby]="generalTabId()">
+    <recipe-card-tab [isActive]="activeTab() === 'general'">
       @if (this.recipe.name) {
-      <h2 class="mb-3 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">{{ recipe.name }}</h2>
+        <recipe-card-tab-title>{{ recipe.name }}</recipe-card-tab-title>
       }
 
       <div class="flex flex-wrap text-2xs">
         <badge *ngFor="let tag of recipe?.tags" variant="info">{{tag}}</badge>
       </div>
-    </div>
+    </recipe-card-tab>
+
+    <recipe-card-tab [isActive]="activeTab() === 'ingredients'" *ngIf="ingredients.length > 0">
+      <recipe-card-tab-title>Ingredients</recipe-card-tab-title>
+
+      <ul class="list-disc">
+        <li class="p-xs text-sm" *ngFor="let ingredient of ingredients">{{ ingredient }}</li>
+      </ul>
+    </recipe-card-tab>
+
+    <recipe-card-tab [isActive]="activeTab() === 'instructions'" *ngIf="instructions.length > 0">
+      <recipe-card-tab-title>Instructions</recipe-card-tab-title>
+
+      <ul class="list-disc">
+        <li class="p-xs text-sm" *ngFor="let instruction of instructions">{{ instruction }}</li>
+      </ul>
+    </recipe-card-tab>
   </div>
