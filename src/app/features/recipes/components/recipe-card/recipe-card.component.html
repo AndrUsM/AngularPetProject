@@ -3,26 +3,35 @@
     class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
     role="tablist">
     <recipe-card-nav-link (navigate)="this.setActiveTab($event)" tabName="general">General</recipe-card-nav-link>
-    <recipe-card-nav-link (navigate)="this.setActiveTab($event)" tabName="ingredients">Ingredients</recipe-card-nav-link>
-    <recipe-card-nav-link (navigate)="this.setActiveTab($event)" tabName="instructions">Instructions</recipe-card-nav-link>
+    <recipe-card-nav-link (navigate)="this.setActiveTab($event)"
+      tabName="ingredients">Ingredients</recipe-card-nav-link>
+    <recipe-card-nav-link (navigate)="this.setActiveTab($event)"
+      tabName="instructions">Instructions</recipe-card-nav-link>
   </ul>
 
   <div>
     <recipe-card-tab [isActive]="activeTab() === 'general'">
       @if (this.recipe.name) {
-        <recipe-card-tab-title>{{ recipe.name }}</recipe-card-tab-title>
+      <recipe-card-tab-title>{{ recipe.name }}</recipe-card-tab-title>
       }
 
+
+      @if (recipe.tags.length > 0) {
       <div class="flex flex-wrap text-2xs">
-        <badge *ngFor="let tag of recipe?.tags" variant="info">{{tag}}</badge>
+        @for (tag of recipe.tags; track $index) {
+        <badge variant="info">{{tag}}</badge>
+        }
       </div>
+      }
     </recipe-card-tab>
 
     <recipe-card-tab [isActive]="activeTab() === 'ingredients'" *ngIf="ingredients.length > 0">
       <recipe-card-tab-title>Ingredients</recipe-card-tab-title>
 
       <ul class="list-disc">
-        <li class="p-xs text-sm" *ngFor="let ingredient of ingredients">{{ ingredient }}</li>
+        @for (ingredient of ingredients; track $index) {
+        <li class="p-xs text-sm">{{ ingredient }}</li>
+        }
       </ul>
     </recipe-card-tab>
 
@@ -30,7 +39,9 @@
       <recipe-card-tab-title>Instructions</recipe-card-tab-title>
 
       <ul class="list-disc">
-        <li class="p-xs text-sm" *ngFor="let instruction of instructions">{{ instruction }}</li>
+        @for (instruction of instructions; track $index) {
+        <li class="p-xs text-sm">{{ instruction }}</li>
+        }
       </ul>
     </recipe-card-tab>
   </div>

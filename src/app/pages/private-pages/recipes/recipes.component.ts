@@ -1,4 +1,3 @@
-import { NgFor } from "@angular/common";
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, signal } from "@angular/core";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatOptionModule } from "@angular/material/core";
@@ -18,7 +17,6 @@ import { delay, interval, Subject, takeUntil, throttle } from "rxjs";
   standalone: true,
   imports: [
     RecipeCardComponent,
-    NgFor,
     MatOptionModule,
     MatSelectModule,
     FormsModule,

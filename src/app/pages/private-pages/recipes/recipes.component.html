@@ -24,7 +24,9 @@
 
   @if (!isLoading() && recipes().length > 0) {
   <div class="stack-layout">
-    <recipe-card *ngFor="let recipe of recipes()" [recipe]="recipe"></recipe-card>
+    @for (recipe of recipes(); track $index) {
+    <recipe-card [recipe]="recipe"></recipe-card>
+    }
   </div>
   }
 
@@ -33,6 +35,6 @@
   }
 
   @if (!isLoading() && !recipes().length) {
-    <h2>No recipes</h2>
+  <h2>No recipes</h2>
   }
 </div>

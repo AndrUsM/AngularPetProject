@@ -1,4 +1,4 @@
-import { CommonModule, NgFor } from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { Component, Input, input, OnInit, signal } from "@angular/core";
 
 import { Recipe } from "@features/recipes/models/recipe";
@@ -19,7 +19,6 @@ import { RecipeCardTabTitleComponent } from "./recipe-card-tab-title/recipe-card
     RecipeCardTabComponent,
     RecipeCardNavLinkComponent,
     RecipeCardTabTitleComponent,
-    NgFor,
     CommonModule,
   ],
 })
