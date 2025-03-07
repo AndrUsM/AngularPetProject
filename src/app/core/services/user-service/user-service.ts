@@ -1,13 +1,14 @@
-import { Injectable, signal, effect, OnDestroy, inject, OnInit } from "@angular/core";
+import { Injectable, signal, OnDestroy, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { Observable, Subject, iif, map, skipWhile, takeUntil, takeWhile } from "rxjs";
+import { Observable, Subject, map, skipWhile, takeUntil, takeWhile } from "rxjs";
 
 import { Role, UserDto } from '@core/models/user-dto';
+import { SessionStorageService } from "@core/services/session-storage-service/session-storage-service";
+
 import { UserLoginDto } from "@features/users/models/user-login-dto";
 import { UserLoginResponse } from "@features/users/models/user-login-response";
 import { UserFefetchResponse } from "@features/users/models/user-refetch-auth-response";
-import { SessionStorageService } from "@core/services/session-storage-service/session-storage-service";
 
 import { convertHoursToMinutes } from "@shared/utils/parse-hours-to-minutes";
 import { mapUserTpBaseUserInfo } from "@shared/utils/map-user-to-base-user-info";

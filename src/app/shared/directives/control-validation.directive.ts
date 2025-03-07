@@ -1,4 +1,4 @@
-import { Attribute, Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { Attribute, Directive, Input } from "@angular/core";
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from "@angular/forms";
 
 import { BOOLEAN_NOOP } from "../constants/boolean-noop";

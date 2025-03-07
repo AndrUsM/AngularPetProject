@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, input, OnInit, signal } from "@angular/core";
+import { Component, Input, signal } from "@angular/core";
 
 import { Recipe } from "@features/recipes/models/recipe";
 

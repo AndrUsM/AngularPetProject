@@ -4,7 +4,6 @@ import { AppGuard } from '@core/services/app-guard/app-guard';
 
 import { HomePageComponent } from '../pages/private-pages/homepage/homepage.component';
 import { LoginComponent } from 'app/pages/auth/login/login.component';
-import { AppComponent } from 'app/app.component';
 import { RecipesComponent } from 'app/pages/private-pages/recipes/recipes.component';
 
 

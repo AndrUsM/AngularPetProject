@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, signal } from "@angular/core";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatOptionModule } from "@angular/material/core";
-import { MatFormFieldModule, MatLabel } from "@angular/material/form-field";
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from '@angular/material/select';
 import { EntitySort } from "@core/models/entity-query-params";
-import { RecipeCardComponent } from "@features/recipes/components/recipe-card/recipe-card.component";
 
+import { interval, Subject, takeUntil, throttle } from "rxjs";
+
+import { RecipeCardComponent } from "@features/recipes/components/recipe-card/recipe-card.component";
 import { Recipe } from "@features/recipes/models/recipe";
 import { RecipesService } from "@features/recipes/services/recipes-service/recipes-service";
-import { delay, interval, Subject, takeUntil, throttle } from "rxjs";
 
 @Component({
   selector: 'recipes',

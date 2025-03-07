@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild } from '@angular/router';
+import { Router, CanActivateChild } from '@angular/router';
+
 import { isAuthorized } from '@core/utils/is-authorized';
 
 @Injectable()
@@ -7,7 +8,7 @@ export class AppGuard implements CanActivateChild {
 
   constructor(private router: Router) { }
 
-  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivateChild() {
     if (isAuthorized()) {
       return true;
     }

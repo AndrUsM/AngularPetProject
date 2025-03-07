@@ -4,7 +4,7 @@ import { AbstractControl, NG_VALIDATORS, Validator } from "@angular/forms";
 import isCardNumberValid from 'card-validator';
 
 interface ValidatorFn {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 @Directive({

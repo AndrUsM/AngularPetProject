@@ -12,12 +12,12 @@ export class SessionStorageService {
       const result = JSON.parse(sessionStorage.getItem(key) || '{}');
       return result;
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log(error);
     }
   }
 
-  setItem(key: string, value: string | any) {
+  setItem(key: string, value: string) {
     try {
       return sessionStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
