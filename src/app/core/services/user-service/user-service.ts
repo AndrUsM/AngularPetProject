@@ -5,6 +5,7 @@ import { Observable, Subject, map, skipWhile, takeUntil, takeWhile } from "rxjs"
 
 import { Role, UserDto } from '@core/models/user-dto';
 import { SessionStorageService } from "@core/services/session-storage-service/session-storage-service";
+import { BaseUserDto } from "@core/models/user-base-dto";
 
 import { UserLoginDto } from "@features/users/models/user-login-dto";
 import { UserLoginResponse } from "@features/users/models/user-login-response";
@@ -21,8 +22,8 @@ export class UserService implements OnDestroy {
 
   private readonly sessionStorageService = inject(SessionStorageService);
 
-  private roles = signal<Role[] | null>([]);
-  private user = signal<UserDto | null>(this.sessionStorageService.getItem('base-user-info'));
+  public roles = signal<Role[]>([]);
+  public user = signal<UserDto | null>(this.sessionStorageService.getItem('base-user-info'));
   private accessToken = signal<string | null>(this.sessionStorageService.getItem('auth-access-token'));
   private refreshToken = signal<string | null>(this.sessionStorageService.getItem('auth-refresh-token'));
   private TOKEN_EXPIRATION_TIME = convertHoursToMinutes(2);
@@ -43,7 +44,7 @@ export class UserService implements OnDestroy {
           this.accessToken.set(accessToken ?? null);
           this.refreshToken.set(refreshToken ?? null);
 
-          this.saveUserDateToSessionStorage(
+          this.saveAuthAndUserDataToSessionStorage(
             {
               accessToken,
               refreshToken,
@@ -63,6 +64,7 @@ export class UserService implements OnDestroy {
         map((user) => {
           this.user.set(user);
           this.roles.set([user?.role as Role].filter(Boolean));
+          this.saveUserDataToSessionStorage(user);
 
           return user;
         }));
@@ -73,9 +75,16 @@ export class UserService implements OnDestroy {
     this.sessionStorageService.setItem('auth-refresh-token', refreshToken);
   }
 
-  private saveUserDateToSessionStorage({ accessToken, refreshToken, ...user }: UserLoginResponse): void {
+  private saveAuthAndUserDataToSessionStorage({ accessToken, refreshToken, ...user }: UserLoginResponse): void {
     this.saveTokensToSessionStorage({ accessToken, refreshToken });
-    this.sessionStorageService.setItem('base-user-info', mapUserTpBaseUserInfo(user));
+    this.saveUserDataToSessionStorage(user);
+  }
+
+  public saveUserDataToSessionStorage(user: UserDto): void {
+    this.sessionStorageService.setItem(
+      'base-user-info',
+      JSON.stringify(mapUserTpBaseUserInfo(user))
+    );
   }
 
   public refetchAuthSession(): void {
@@ -107,11 +116,20 @@ export class UserService implements OnDestroy {
         skipWhile((maybeUser) => !maybeUser),
         map((maybeUser: UserLoginResponse) => {
           this.user.set(maybeUser as UserDto);
-          this.saveUserDateToSessionStorage(maybeUser);
+          this.saveAuthAndUserDataToSessionStorage(maybeUser);
 
           return maybeUser;
         })
       );
+  }
+
+  public getBaseUser(): BaseUserDto | null {
+    return this.user()
+      ? mapUserTpBaseUserInfo(this.user()!)
+      : JSON.parse(
+        this.sessionStorageService.getItem(
+          'base-user-info')
+      )
   }
 
   public isAdmin(): boolean {
